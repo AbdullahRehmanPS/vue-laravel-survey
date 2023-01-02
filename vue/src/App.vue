@@ -1,13 +1,12 @@
 <template>
-  <HelloWorld />
+  <router-view></router-view>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 import {mapState} from 'vuex'
 
 export default {
-  components: {HelloWorld},
+  components: {},
   computed: {
     ...mapState(['user'])
   }
