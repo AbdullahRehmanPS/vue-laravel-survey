@@ -1,8 +1,12 @@
 import axios from "axios";
+import store from "./store/index.js";
 
 const axiosClient = axios.create({
-  baseURL: 'http://localhost:5174/api'
-})
-axiosClient.interceptors.request.use()
+  baseURL: 'http://survey-app.test/api'
+});
 
+axiosClient.interceptors.request.use(config => {
+  config.headers.Authorization = `Bearer ${store.state.user.token}`
+  return config;
+});
 export default axiosClient;

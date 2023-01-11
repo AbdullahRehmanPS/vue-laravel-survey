@@ -82,7 +82,7 @@
             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
               <LockClosedIcon class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
             </span>
-            Sign in
+            Sign Up
           </button>
         </div>
       </form>
@@ -105,11 +105,11 @@ const user = {
 function register(ev) {
   ev.preventDefault();
   store
-    .dispatch('register', user)
+    .dispatch("register", user)
     .then(() => {
       router.push({
-        name: 'Dashboard'
-      })
+        name: "Dashboard",
+      });
     })
 }
 

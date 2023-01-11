@@ -142,7 +142,6 @@ import { Disclosure,
 import { BellIcon,
         Bars3Icon,
         XMarkIcon } from '@heroicons/vue/24/outline';
-// import { BellIcon, MenuIcon, XIcon } from '@heroicons/vue/24/outline';
 import {useStore} from 'vuex';
 import {useRouter} from 'vue-router';
 import {computed} from "vue";
@@ -150,15 +149,8 @@ import {computed} from "vue";
 const navigation = [
   { name: 'Dashboard', to: {name: 'Dashboard'} },
   { name: 'Surveys', to: {name: 'Surveys'} },
-  // { name: 'Projects', href: '#', current: false },
-  // { name: 'Calendar', href: '#', current: false },
-  // { name: 'Reports', href: '#', current: false },
 ];
-// const userNavigation = [
-//   { name: 'Your Profile', href: '#' },
-//   { name: 'Settings', href: '#' },
-//   { name: 'Sign out', href: '#' },
-// ];
+
 export default {
   components: {
     Disclosure,
@@ -171,25 +163,25 @@ export default {
     BellIcon,
     XMarkIcon,
     Bars3Icon
-    // MenuIcon,
-    // XIcon,
   },
   setup() {
     const store = useStore();
     const router = useRouter();
 
     function logout() {
-      store.commit('logout')
-      router.push({
-        name: 'Login'
-      })
+      store
+        .dispatch('logout')
+        .then(() => {
+          router.push({
+            name: 'Login'
+          });
+        });
     }
 
     return {
       user: computed(() => store.state.user.data),
       navigation,
       logout
-      // userNavigation
     };
   },
 };

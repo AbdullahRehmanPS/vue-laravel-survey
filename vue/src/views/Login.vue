@@ -11,7 +11,10 @@
           </router-link>
         </p>
       </div>
-      <form class="mt-8 space-y-6" action="#" method="POST">
+      <form class="mt-8 space-y-6" @submit="login">
+        <div v-if="errMsg" class="py-3 px-5 bg-red-500 text-white rounded">
+          {{errMsg}}
+        </div>
         <input type="hidden" name="remember" value="true" />
         <div class="-space-y-px rounded-md shadow-sm">
           <div>
@@ -71,6 +74,7 @@
 <script setup>
 import { LockClosedIcon } from '@heroicons/vue/20/solid'
 import {useRouter} from "vue-router";
+import {ref} from "vue";
 import store from "../store/index.js";
 
 const router = useRouter();
@@ -80,6 +84,8 @@ const user = {
   remember: false
 };
 
+let errMsg = ref('');
+
 function login(ev) {
   ev.preventDefault()
   store
@@ -87,7 +93,10 @@ function login(ev) {
     .then(() => {
       router.push({
         name: 'Dashboard'
-      })
+      });
+    })
+    .catch((err) => {
+      errMsg.value = err.response.data.error
     })
 }
 
