@@ -11,6 +11,7 @@
           </router-link>
         </p>
       </div>
+
       <form class="mt-8 space-y-6" @submit="login">
         <div v-if="errMsg" class="py-3 px-5 bg-red-500 text-white rounded">
           {{errMsg}}
@@ -44,7 +45,8 @@
             <input
               id="remember-me"
               name="remember-me"
-              type="checkbox" v-model="user.remember"
+              type="checkbox"
+              v-model="user.remember"
               class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
             />
             <label for="remember-me" class="ml-2 block text-sm text-gray-900">
@@ -73,7 +75,7 @@
 
 <script setup>
 import { LockClosedIcon } from '@heroicons/vue/20/solid'
-import {useRouter} from "vue-router";
+import { useRoute } from "vue-router";
 import {ref} from "vue";
 import store from "../store/index.js";
 

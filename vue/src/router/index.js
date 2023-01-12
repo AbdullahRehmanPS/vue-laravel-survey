@@ -1,11 +1,12 @@
 import {createRouter, createWebHistory} from "vue-router";
 
 import Dashboard from "../views/Dashboard.vue";
+import Surveys from "../views/Surveys.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
-import Surveys from "../views/Surveys.vue";
-import store from "../store/index.js";
+import SurveyView from "../views/SurveyView.vue"
 
+import store from "../store/index.js";
 import DefaultLayout from "../components/DefaultLayout.vue";
 import AuthLayout from "../components/AuthLayout.vue";
 
@@ -16,8 +17,10 @@ const routes = [
     component: DefaultLayout,
     meta: {requiresAuth: true},
     children: [
-      {path: '/dashboard', name: 'Dashboard', component: Dashboard},
-      {path: '/surveys', name: 'Surveys', component: Surveys}
+      { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+      { path: '/surveys', name: 'Surveys', component: Surveys },
+      { path: '/surveys/create', name: 'SurveyCreate', component: SurveyView },
+      { path: '/surveys/:id', name: 'SurveyView', component: SurveyView}
     ]
   },
   {
@@ -27,8 +30,8 @@ const routes = [
     component: AuthLayout,
     meta: {isGuest: true},
     children: [
-      {path: '/login', name: 'Login', component: Login},
-      {path: '/register', name: 'Register', component: Register}
+      { path: '/login', name: 'Login', component: Login },
+      { path: '/register', name: 'Register', component: Register }
     ]
   },
 ];

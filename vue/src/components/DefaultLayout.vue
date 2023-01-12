@@ -7,8 +7,7 @@
 
             <div class="flex-shrink-0">
               <img class="h-8 w-8"
-                   src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                   alt="Your Company" />
+                   src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
             </div>
 
             <div class="hidden md:block">
@@ -134,6 +133,9 @@
 </template>
 
 <script>
+import {useStore} from 'vuex';
+import {useRouter} from 'vue-router';
+import {computed} from "vue";
 import { Disclosure,
         DisclosureButton,
         DisclosurePanel,
@@ -142,9 +144,6 @@ import { Disclosure,
 import { BellIcon,
         Bars3Icon,
         XMarkIcon } from '@heroicons/vue/24/outline';
-import {useStore} from 'vuex';
-import {useRouter} from 'vue-router';
-import {computed} from "vue";
 
 const navigation = [
   { name: 'Dashboard', to: {name: 'Dashboard'} },
@@ -177,12 +176,13 @@ export default {
           });
         });
     }
-
     return {
       user: computed(() => store.state.user.data),
       navigation,
       logout
     };
+
+
   },
 };
 </script>
