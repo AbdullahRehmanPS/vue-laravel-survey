@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import UUID from 'vue-uuid'
 import './index.css'
 import store from './store'
 import router from './router'

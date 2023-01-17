@@ -58,14 +58,14 @@ const tmpSurveys = [
       {
         id: 4,
         type: "text",
-        question: "You favourite channel",
+        question: "You favourite channel?",
         description: null,
         data: {},
       },
       {
         id: 5,
         type: "textarea",
-        question: "You favourite park",
+        question: "You favourite park?",
         description: "write honest opinion",
         data: {},
       },
@@ -92,6 +92,7 @@ const store = createStore({
       token: sessionStorage.getItem("TOKEN"),
     },
     surveys: [...tmpSurveys],
+    questionTypes: [ 'text', 'textarea', 'select', 'radio', 'checkbox' ],
   },
   getters: {},
   actions: {

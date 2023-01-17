@@ -13,7 +13,8 @@
     "@heroicons/vue": "^2.0.13",
     "@tailwindcss/forms": "^0.5.3",
     "axios": "^1.2.2",
-    "vue": "^3.2.45"
+    "vue": "^3.2.45",
+    "vue-uuid": "^3.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
