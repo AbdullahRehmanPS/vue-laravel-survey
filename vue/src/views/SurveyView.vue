@@ -234,11 +234,18 @@ function addQuestion(index) {
 }
 
 function deleteQuestion(question) {
-  model.value.questions = model.value.questions.filter((q) => q !== question)
+  model.value.questions = model.value.questions.filter((q) => q !== question);
 }
 
 function questionChange(data) {
-
+  model.value.questions = model.value.questions.map(
+    (q) => {
+      if (q.id === data.id) {
+        return JSON.parse(JSON.stringify(data));
+      }
+      return q;
+    }
+  );
 }
 
 function submitted() {

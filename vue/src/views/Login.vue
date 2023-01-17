@@ -75,7 +75,7 @@
 
 <script setup>
 import { LockClosedIcon } from '@heroicons/vue/20/solid'
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import {ref} from "vue";
 import store from "../store/index.js";
 
