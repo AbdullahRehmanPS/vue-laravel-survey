@@ -96,7 +96,7 @@ const store = createStore({
   },
   getters: {},
   actions: {
-    register({commit}, user) {
+    register({ commit }, user) {
       return axiosClient.post('/register', user)
         .then( ({data}) => {
           commit('setUser', data);
@@ -119,6 +119,24 @@ const store = createStore({
           return response;
         })
     },
+    saveSurvey({ commit, dispatch }, survey) {
+      // delete survey.image_url;
+      let response;
+      if (survey.id) {
+        response = axiosClient
+          .put('/survey/${survey.id}', survey)
+          .then((res) => {
+            commit('updateSurvey', res.data) //setCurrentSurvey
+            return res;
+          });
+      } else {
+        response = axiosClient.post("/survey", survey).then((res) => {
+          commit('saveSurvey', res.data) //setCurrentSurvey
+          return res;
+        });
+      }
+      return response;
+    },
   },
   mutations: {
     logout: state => {
@@ -131,6 +149,17 @@ const store = createStore({
       state.user.data = userData.user;
       sessionStorage.setItem('TOKEN', userData.token);
     },
+    saveSurvey: (state, survey) => {
+      state.surveys = [...state.surveys, survey.data]
+    },
+    updateSurvey: (state, survey) => {
+      state.surveys = state.surveys.map( (s) => {
+        if (s.id === survey.data.id) {
+          return survey.data;
+        }
+        return s;
+      });
+    }
   }
 })
 export default store;

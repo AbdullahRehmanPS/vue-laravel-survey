@@ -207,6 +207,7 @@ import {useRouter, useRoute} from "vue-router";
 import {ref} from 'vue';
 
 const route = useRoute();
+const router = useRouter();
 
 let model = ref({
   title: "",
@@ -250,6 +251,15 @@ function questionChange(data) {
 
 function submitted() {
   console.log('cv')
+}
+
+function saveSurvey() {
+  store.dispatch('saveSurvey', model.value).then( ({data}) => {
+      router.push({
+        name: 'SurveyView',
+        params: {id: data.data.id}
+      });
+    });
 }
 
 </script>
