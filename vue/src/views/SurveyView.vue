@@ -19,8 +19,8 @@
             </label>
             <div class="mt-1 flex items-center">
               <img
-                v-if="model.image"
-                :src="model.image"
+                v-if="model.image_url"
+                :src="model.image_url"
                 :alt="model.title"
                 class="w-64 h-48 object-cover"
               />
@@ -54,6 +54,7 @@
                 Change
                 <input
                   type="file"
+                  @change="onImageChange"
                   class="absolute left-0 top-0 right-0 bottom-0 opacity-0 cursor-pointer"
                 >
               </button>
@@ -204,23 +205,50 @@ import QuestionEditor from "../components/editor/QuestionEditor.vue"
 import { uuid } from 'vue-uuid';
 import store from "../store/index.js";
 import {useRouter, useRoute} from "vue-router";
-import {ref} from 'vue';
+import {ref, watch, computed} from 'vue';
 
 const route = useRoute();
 const router = useRouter();
+const surveyLading = computed(() => store.state.currentSurvey.loading);
 
 let model = ref({
   title: "",
   status: false,
   description: null,
   image: null,
+  image_url: null,
   expire_date: null,
   questions: [],
 });
 
+watch(
+  () => store.state.currentSurvey.data,
+  (newVal, oldVal) => {
+    model.value = {
+      ...JSON.parse(JSON.stringify(newVal)),
+      status: newVal.status !== 'draft',
+    };
+  }
+);
+
 if (route.params.id) {
-  model.value = store.state.surveys.find((s) => s.id === parseInt(route.params.id));
+  //model.value = store.state.surveys.find((s) => s.id === parseInt(route.params.id));
   // console.log(parseInt(route.params.id))
+  store.dispatch('getSurvey', route.params.id);
+}
+
+function onImageChange(ev) {
+
+  const file = ev.target.files[0];
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    // The field to send on backend and apply validations
+    model.value.image = reader.result;
+    // The field to display here
+    model.value.image_url = reader.result;
+  }
+  reader.readAsDataURL(file);
 }
 
 function addQuestion(index) {
@@ -247,10 +275,6 @@ function questionChange(data) {
       return q;
     }
   );
-}
-
-function submitted() {
-  console.log('cv')
 }
 
 function saveSurvey() {
